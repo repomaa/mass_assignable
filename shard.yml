@@ -1,0 +1,17 @@
+name: mass_assignable
+version: 0.1.0
+
+authors:
+  - Joakim Repomaa <mail@j.repomaa.com>
+
+development_dependencies:
+  paladin:
+    github: repomaa/paladin
+
+targets:
+  spec:
+    main: spec/mass_assignable_spec.cr
+
+crystal: 0.29.0
+
+license: MIT

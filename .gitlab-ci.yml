@@ -31,12 +31,16 @@ github sync:
   variables:
     GIT_SSH_COMMAND: ssh -i deploy_key -o StrictHostKeyChecking=no
   before_script:
+    - export LOCAL_REPO=$(pwd)
     - apk update && apk add openssh git
+    - cd /opt
+    - git clone --mirror "$LOCAL_REPO" "$CI_PROJECT_NAME"
+    - cd "$PROJECT_NAME"
+    - git remote add github git@github.com:repomaa/mass_assignable.git
     - touch deploy_key
     - chmod 600 deploy_key
     - echo "$DEPLOY_KEY" > deploy_key
   script:
-    - git remote add github git@github.com:repomaa/mass_assignable.git
     - git push --mirror github
   only:
     refs:

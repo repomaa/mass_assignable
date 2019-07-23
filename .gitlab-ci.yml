@@ -26,9 +26,12 @@ format:
     - crystal tool format --check
 
 github sync:
+  image: jreinert/crystal-alpine:latest
   stage: sync
   variables:
     GIT_SSH_COMMAND: ssh -i deploy_key -o StrictHostKeyChecking=no
+  before_script:
+    - echo "$DEPLOY_KEY" > deploy_key
   script:
     - git remote add github git@github.com:repomaa/mass_assignable.git
     - git push --all github

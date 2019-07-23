@@ -61,7 +61,6 @@ module MassAssignable
                 value = attributes[{{key}}]
               {% end %}
 
-              {% tuple_type = T[options[:key]] %}
               {% if options[:converter] %}
                 {{options[:converter]}}.from_attribute(value)
               {% else %}
@@ -176,7 +175,6 @@ module MassAssignable
                 value = attributes[{{key}}]
               {% end %}
 
-              {% tuple_type = T[options[:key]] %}
               {% if options[:converter] %}
                 {{options[:converter]}}.from_attribute(value)
               {% else %}

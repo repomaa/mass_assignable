@@ -1,5 +1,6 @@
 stages:
   - test
+  - sync
 
 .base:
   image: jreinert/crystal-alpine:latest
@@ -23,3 +24,14 @@ format:
   stage: test
   script:
     - crystal tool format --check
+
+github sync:
+  stage: sync
+  variables:
+    GIT_SSH_COMMAND: ssh -i deploy_key -o StrictHostKeyChecking=no
+  script:
+    - git remote add github git@github.com:repomaa/mass_assignable.git
+    - git push --all github
+  only:
+    refs:
+      - master

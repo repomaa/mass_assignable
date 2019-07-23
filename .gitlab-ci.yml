@@ -1,0 +1,25 @@
+stages:
+  - test
+
+.base:
+  image: jreinert/crystal-alpine:latest
+  before_script:
+    - shards install
+
+spec:
+  extends: .base
+  stage: test
+  script:
+    - crystal spec
+
+lint:
+  extends: .base
+  stage: test
+  script:
+    - bin/ameba
+
+format:
+  extends: .base
+  stage: test
+  script:
+    - crystal tool format --check

@@ -35,12 +35,9 @@ github sync:
     - touch /deploy_key
     - chmod 600 /deploy_key
     - echo "$DEPLOY_KEY" > /deploy_key
-    - git clone --mirror . mirror
   script:
-    - cd mirror
-    - pwd
     - git remote add github git@github.com:repomaa/mass_assignable.git
-    - git push --mirror github
+    - git push --tags --prune github refs/remotes/origin/*:refs/heads/*
   only:
     refs:
       - master

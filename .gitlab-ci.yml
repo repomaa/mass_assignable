@@ -33,15 +33,13 @@ github sync:
   before_script:
     - export LOCAL_REPO=$(pwd)
     - apk update && apk add openssh git
-    - cd /opt
-    - git clone --mirror "$LOCAL_REPO" "$CI_PROJECT_NAME"
-    - cd "$PROJECT_NAME"
-    - git remote add github git@github.com:repomaa/mass_assignable.git
-    - touch deploy_key
-    - chmod 600 deploy_key
-    - echo "$DEPLOY_KEY" > deploy_key
+    - cd /opt && git clone --mirror "$LOCAL_REPO" "$CI_PROJECT_NAME"
+    - cd "/opt/$PROJECT_NAME" && git remote add github git@github.com:repomaa/mass_assignable.git
+    - touch "/opt/$PROJECT_NAME/deploy_key"
+    - chmod 600 "/opt/$PROJECT_NAME/deploy_key"
+    - echo "$DEPLOY_KEY" > "/opt/$PROJECT_NAME/deploy_key"
   script:
-    - git push --mirror github
+    - cd "/opt/$PROJECT_NAME" && git push --mirror github
   only:
     refs:
       - master

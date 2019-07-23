@@ -30,15 +30,15 @@ describe Enumerable do
     context "with non-primitive types" do
       it "coerces correctly" do
         [{1, TestStruct.new("bar")}, [3, 4]].to_attribute.should eq(
-          [{1, { foo: "bar" }}, [3, 4]]
+          [{1, {foo: "bar"}}, [3, 4]]
         )
 
-        { {1, TestStruct.new("bar") }, [3, 4] }.to_attribute.should eq(
-          { {1, { foo: "bar" }}, [3, 4] }
+        { {1, TestStruct.new("bar")}, [3, 4] }.to_attribute.should eq(
+          { {1, {foo: "bar"}}, [3, 4] }
         )
 
         Set{ {1, TestStruct.new("bar")}, [3, 4] }.to_attribute.should eq(
-          [{1, { foo: "bar" }}, [3, 4]]
+          [{1, {foo: "bar"}}, [3, 4]]
         )
       end
     end
@@ -49,14 +49,14 @@ describe NamedTuple do
   describe "#to_attribute" do
     context "with primitive types" do
       it "coerces correctly" do
-        { foo: "bar", bar: 2 }.to_attribute.should eq({ foo: "bar", bar: 2})
+        {foo: "bar", bar: 2}.to_attribute.should eq({foo: "bar", bar: 2})
       end
     end
 
     context "with non-primitive types" do
       it "coerces correctly" do
-        { foo: TestStruct.new("bar"), bar: [3, 4] }.to_attribute.should eq(
-          { foo: { foo: "bar" }, bar: [3, 4] }
+        {foo: TestStruct.new("bar"), bar: [3, 4]}.to_attribute.should eq(
+          {foo: {foo: "bar"}, bar: [3, 4]}
         )
       end
     end
@@ -67,17 +67,17 @@ describe Hash do
   describe "#to_attribute" do
     context "with primitive types" do
       it "coerces correctly" do
-        { "foo" => "bar", "bar" => 2 }.to_attribute.should eq({
+        {"foo" => "bar", "bar" => 2}.to_attribute.should eq({
           "foo" => "bar",
-          "bar" => 2
+          "bar" => 2,
         })
       end
     end
 
     context "with non-primitive types" do
       it "coerces correctly" do
-        { "foo" => TestStruct.new("bar"), "bar" => [3, 4] }.to_attribute.should eq(
-          { "foo" => { foo: "bar" }, "bar" => [3, 4] }
+        {"foo" => TestStruct.new("bar"), "bar" => [3, 4]}.to_attribute.should eq(
+          {"foo" => {foo: "bar"}, "bar" => [3, 4]}
         )
       end
     end
@@ -88,14 +88,14 @@ describe StaticArray do
   describe "#to_attribute" do
     context "with primitive types" do
       it "coerces correctly" do
-        StaticArray[1, 2, 3].to_attribute.should eq({ 1, 2, 3 })
+        StaticArray[1, 2, 3].to_attribute.should eq({1, 2, 3})
       end
     end
 
     context "with non-primitive types" do
       it "coerces correctly" do
         StaticArray[{1, TestStruct.new("bar")}, [3, 4]].to_attribute.should eq(
-          { {1, { foo: "bar" }}, [3, 4] }
+          { {1, {foo: "bar"}}, [3, 4] }
         )
       end
     end

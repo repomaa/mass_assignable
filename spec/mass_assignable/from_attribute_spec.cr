@@ -81,7 +81,7 @@ describe StaticArray do
         StaticArray(Tuple(Int32, Int32), 3).from_attribute([
           [1, 2],
           Set{3, 4},
-          StaticArray[5, 6]
+          StaticArray[5, 6],
         ]).should eq(StaticArray[{1, 2}, {3, 4}, {5, 6}])
       end
     end
@@ -113,7 +113,7 @@ describe Tuple do
     context "Indexable of non-primitive types" do
       it "coerces correctly" do
         Tuple(Tuple(Int32, String), Array(Int32)).from_attribute(
-          [ [1, "foo"], [2, 3] ]
+          [[1, "foo"], [2, 3]]
         ).should eq({ {1, "foo"}, [2, 3] })
       end
     end
@@ -127,7 +127,7 @@ describe Tuple do
     context "Enumerable of non-primitive types" do
       it "coerces correctly" do
         Tuple(Tuple(Int32, String), Array(Int32)).from_attribute(
-          Set{Set{1,"foo"}, Set{2, 3}}
+          Set{Set{1, "foo"}, Set{2, 3}}
         ).should eq({ {1, "foo"}, [2, 3] })
       end
     end
@@ -139,8 +139,8 @@ describe NamedTuple do
     context "self" do
       it "coerces correctly" do
         NamedTuple(foo: String, bar: Int32).from_attribute(
-          { foo: "bar", bar: 2 }
-        ).should eq({ foo: "bar", bar: 2 })
+          {foo: "bar", bar: 2}
+        ).should eq({foo: "bar", bar: 2})
       end
     end
 
@@ -148,24 +148,23 @@ describe NamedTuple do
       it "coerces correctly" do
         NamedTuple(
           foo: Tuple(Int32, String),
-          bar: NamedTuple(foobar: String)
-        ).from_attribute(
-          { foo: [2, "bar"], bar: { foobar: "foo" } }
-        ).should eq({ foo: {2, "bar"}, bar: { foobar: "foo" } })
+          bar: NamedTuple(foobar: String)).from_attribute(
+          {foo: [2, "bar"], bar: {foobar: "foo"}}
+        ).should eq({foo: {2, "bar"}, bar: {foobar: "foo"}})
       end
     end
 
     context "Hash with string keys" do
       NamedTuple(foo: String, bar: Int32).from_attribute({
         "foo" => "bar",
-        "bar" => 2
+        "bar" => 2,
       }).should eq({foo: "bar", bar: 2})
     end
 
     context "Hash with symbol keys" do
       NamedTuple(foo: String, bar: Int32).from_attribute({
         :foo => "bar",
-        :bar => 2
+        :bar => 2,
       }).should eq({foo: "bar", bar: 2})
     end
 
@@ -173,10 +172,9 @@ describe NamedTuple do
       it "coerces correctly" do
         NamedTuple(
           foo: Tuple(Int32, String),
-          bar: NamedTuple(foobar: String)
-        ).from_attribute(
-          { "foo" => [2, "bar"], "bar" => { "foobar" => "foo" } }
-        ).should eq({ foo: {2, "bar"}, bar: { foobar: "foo" } })
+          bar: NamedTuple(foobar: String)).from_attribute(
+          {"foo" => [2, "bar"], "bar" => {"foobar" => "foo"}}
+        ).should eq({foo: {2, "bar"}, bar: {foobar: "foo"}})
       end
     end
   end
@@ -188,8 +186,8 @@ describe Hash do
       it "coerces correctly" do
         Hash(String, Int32 | String).from_attribute({
           "foo" => "bar",
-          "bar" => 2
-        }).should eq({ "foo" => "bar", "bar" => 2 })
+          "bar" => 2,
+        }).should eq({"foo" => "bar", "bar" => 2})
       end
     end
 
@@ -197,8 +195,8 @@ describe Hash do
       it "coerces correctly" do
         Hash(String, Int32 | String).from_attribute({
           foo: "bar",
-          bar: 2
-        }).should eq({ "foo" => "bar", "bar" => 2 })
+          bar: 2,
+        }).should eq({"foo" => "bar", "bar" => 2})
       end
     end
 
@@ -207,8 +205,8 @@ describe Hash do
         Hash(String, Int32 | Tuple(String, Int32) | Hash(String, Int32)).from_attribute({
           foo: 1,
           bar: ["foo", 2],
-          baz: { foobar: 2 }
-        }).should eq({ "foo" => 1, "bar" => {"foo", 2}, "baz" => { "foobar" => 2 } })
+          baz: {foobar: 2},
+        }).should eq({"foo" => 1, "bar" => {"foo", 2}, "baz" => {"foobar" => 2}})
       end
     end
 
@@ -217,8 +215,8 @@ describe Hash do
         Hash(String, Int32 | Tuple(String, Int32) | NamedTuple(foobar: Int32)).from_attribute({
           "foo" => 1,
           "bar" => ["foo", 2],
-          "baz" => { "foobar" => 2 }
-        }).should eq({ "foo" => 1, "bar" => {"foo", 2}, "baz" => { foobar: 2 } })
+          "baz" => {"foobar" => 2},
+        }).should eq({"foo" => 1, "bar" => {"foo", 2}, "baz" => {foobar: 2}})
       end
     end
   end
@@ -237,8 +235,8 @@ describe Union do
     context "non-primitive values" do
       it "coerces correctly" do
         Union(Hash(String, Int32 | String), Tuple(String, Int32), Float64).from_attribute(
-          { foo: 2, bar: "baz" }
-        ).should eq({ "foo" => 2, "bar" => "baz" })
+          {foo: 2, bar: "baz"}
+        ).should eq({"foo" => 2, "bar" => "baz"})
       end
     end
   end

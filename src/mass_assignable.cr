@@ -36,7 +36,7 @@ module MassAssignable
             converter:   ann && ann[:converter],
             presence:    ann && ann[:presence],
             found:       false,
-            ignore:      ann && ann[:ignore]
+            ignore:      ann && ann[:ignore],
           }
         %}
       {% end %}
@@ -111,7 +111,7 @@ module MassAssignable
               key:       ((ann && ann[:key]) || ivar).id,
               root:      ann && ann[:root],
               converter: ann && ann[:converter],
-              ignore:    ann && ann[:ignore]
+              ignore:    ann && ann[:ignore],
             }
           %}
         {% end %}
@@ -152,11 +152,11 @@ module MassAssignable
         {% ann = ivar.annotation(::MassAssignable::Field) %}
         {%
           properties[ivar.id] = {
-            type:        ivar.type,
-            key:         ((ann && ann[:key]) || ivar).id.symbolize,
-            root:        ann && ann[:root],
-            converter:   ann && ann[:converter],
-            ignore:      ann && ann[:ignore]
+            type:      ivar.type,
+            key:       ((ann && ann[:key]) || ivar).id.symbolize,
+            root:      ann && ann[:root],
+            converter: ann && ann[:converter],
+            ignore:    ann && ann[:ignore],
           }
         %}
       {% end %}

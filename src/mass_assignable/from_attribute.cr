@@ -18,7 +18,6 @@ def StaticArray.from_attribute(value : Indexable)
   end
 end
 
-
 def Tuple.from_attribute(value : Tuple)
   {% begin %}
     new(

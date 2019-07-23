@@ -27,7 +27,7 @@ module ComplexConverter
   end
 
   def to_attribute(value)
-    { r: value.real, i: value.imag }
+    {r: value.real, i: value.imag}
   end
 
   extend self
@@ -97,7 +97,7 @@ describe MassAssignable do
 
     context "nested" do
       it "coerces correctly" do
-        instance = Nested.new(inner: { foo: "bar", bar: 2 }, outer: "foo")
+        instance = Nested.new(inner: {foo: "bar", bar: 2}, outer: "foo")
         instance.outer.should eq("foo")
         instance.inner.foo.should eq("bar")
         instance.inner.bar.should eq(2)
@@ -106,7 +106,7 @@ describe MassAssignable do
 
     context "with conversion" do
       it "coerces correctly" do
-        instance = WithConversion.new(value: { r: 1, i: 2 }, other_value: 3)
+        instance = WithConversion.new(value: {r: 1, i: 2}, other_value: 3)
         instance.value.should eq(Complex.new(1, 2))
         instance.other_value.should eq(3)
       end
@@ -131,7 +131,7 @@ describe MassAssignable do
     context "with root" do
       it "coerces correctly" do
         instance = WithRoot.new(
-          simple: { inner: { foo: "bar", bar: 2 } }, outer: "foo"
+          simple: {inner: {foo: "bar", bar: 2}}, outer: "foo"
         )
         instance.simple.foo.should eq("bar")
         instance.simple.bar.should eq(2)
@@ -151,7 +151,7 @@ describe MassAssignable do
 
     context "nested" do
       it "coerces correctly" do
-        instance = Nested.from_attribute({inner: { foo: "bar", bar: 2 }, outer: "foo"})
+        instance = Nested.from_attribute({inner: {foo: "bar", bar: 2}, outer: "foo"})
         instance.outer.should eq("foo")
         instance.inner.foo.should eq("bar")
         instance.inner.bar.should eq(2)
@@ -160,7 +160,7 @@ describe MassAssignable do
 
     context "with conversion" do
       it "coerces correctly" do
-        instance = WithConversion.from_attribute({value: { r: 1, i: 2 }, other_value: 3})
+        instance = WithConversion.from_attribute({value: {r: 1, i: 2}, other_value: 3})
         instance.value.should eq(Complex.new(1, 2))
         instance.other_value.should eq(3)
       end
@@ -187,7 +187,7 @@ describe MassAssignable do
     context "simple" do
       it "coerces correctly" do
         instance = Simple.new(:ignore, "bar", 2)
-        instance.to_attribute.should eq({ foo: "bar", bar: 2 })
+        instance.to_attribute.should eq({foo: "bar", bar: 2})
       end
     end
 
@@ -196,7 +196,7 @@ describe MassAssignable do
         inner = Simple.new(:ignore, "bar", 2)
         instance = Nested.new(:ignore, inner, "foo")
         instance.to_attribute.should eq({
-          inner: { foo: "bar", bar: 2 }, outer: "foo"
+          inner: {foo: "bar", bar: 2}, outer: "foo",
         })
       end
     end
@@ -205,7 +205,7 @@ describe MassAssignable do
       it "coerces correctly" do
         instance = WithConversion.new(:ignore, Complex.new(1, 2), 3)
         instance.to_attribute.should eq({
-          value: { r: 1, i: 2 }, other_value: 3
+          value: {r: 1, i: 2}, other_value: 3,
         })
       end
     end
@@ -214,7 +214,7 @@ describe MassAssignable do
       it "coerces correctly" do
         instance = WithKeyRename.new(:ignore, 1, 2)
         instance.to_attribute.should eq({
-          value: 1, otherValue: 2
+          value: 1, otherValue: 2,
         })
       end
     end
@@ -222,7 +222,7 @@ describe MassAssignable do
     context "with ignored field" do
       it "coerces correctly" do
         instance = WithIgnoredField.new(:ignore, 1, 2)
-        instance.to_attribute.should eq({ value: 1 })
+        instance.to_attribute.should eq({value: 1})
       end
     end
 
@@ -232,9 +232,9 @@ describe MassAssignable do
         instance = WithRoot.new(:ignore, simple, "foo")
         instance.to_attribute.should eq({
           simple: {
-            inner: { foo: "bar", bar: 2 },
+            inner: {foo: "bar", bar: 2},
           },
-          outer: "foo"
+          outer: "foo",
         })
       end
     end
@@ -243,7 +243,7 @@ describe MassAssignable do
   describe "#attributes=" do
     it "allows mass assigning mutable fields" do
       instance = Mutable.new(foo: "bar", bar: 2, baz: "foobar")
-      instance.attributes = { foo: "baz" }
+      instance.attributes = {foo: "baz"}
       instance.foo.should eq("baz")
       instance.bar.should eq(2)
       instance.baz.should eq("foobar")

@@ -32,6 +32,8 @@ github sync:
     GIT_SSH_COMMAND: ssh -i deploy_key -o StrictHostKeyChecking=no
   before_script:
     - apk update && apk add openssh git
+    - touch deploy_key
+    - chmod 600 deploy_key
     - echo "$DEPLOY_KEY" > deploy_key
   script:
     - git remote add github git@github.com:repomaa/mass_assignable.git

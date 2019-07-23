@@ -38,6 +38,7 @@ github sync:
     - git clone --mirror . mirror
   script:
     - cd mirror
+    - pwd
     - git remote add github git@github.com:repomaa/mass_assignable.git
     - git push --mirror github
   only:
